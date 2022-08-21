@@ -2,6 +2,8 @@ package com.asantos.dslearn.entities;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -11,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -32,10 +35,13 @@ public class Offer implements Serializable {
 	// muitos para um (do lado do offers é muito, e do curso é 1)
 	// 1 oferta é de (possui) 1 curso, e 1 curso pode ter várias ofertas
 	// muitos do lado do offer e 1 do lado do curso
-	
+
 	@ManyToOne
 	@JoinColumn(name = "course_id") // chave estrangeira
 	private Course course;
+
+	@OneToMany(mappedBy = "offer") // nome do atributo do outro lado
+	private List<Resource> resources = new ArrayList<Resource>();
 
 	public Offer() {
 	}
@@ -87,6 +93,10 @@ public class Offer implements Serializable {
 
 	public void setCourse(Course course) {
 		this.course = course;
+	}
+
+	public List<Resource> getResources() {
+		return resources;
 	}
 
 	@Override
