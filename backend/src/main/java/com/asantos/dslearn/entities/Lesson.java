@@ -35,6 +35,7 @@ public abstract class Lesson implements Serializable { // garantir a herança to
 	@JoinColumn(name = "section_id")
 	private Section section;
 
+	//Uma Lesson conhece as várias matrículas que terminaram a aula
 	// qnd cada aluno terminou cada lição, muitos pra muitos
 	@ManyToMany
 	@JoinTable(name = "tb_lessons_done", joinColumns = @JoinColumn(name = "lesson_id"), inverseJoinColumns = {
