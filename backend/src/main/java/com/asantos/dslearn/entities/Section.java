@@ -25,11 +25,11 @@ public class Section implements Serializable {
 	private Integer position;
 	private String imgUri;
 
-	@ManyToOne //bidirecional, a seção conhece o resource e o section conhece os resources
+	@ManyToOne // bidirecional, a seção conhece o resource e o section conhece os resources
 	@JoinColumn(name = "resource_id") // chave estrangeira
 	private Resource resource;
 
-	//uma seção pode ter outra seção (auto associação) -> unidirecional
+	// uma seção pode ter outra seção (auto associação) -> unidirecional
 	@ManyToOne
 	@JoinColumn(name = "prequisite_id") // chave estrangeira
 	private Section prerequisite;
@@ -107,7 +107,10 @@ public class Section implements Serializable {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id);
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
 	}
 
 	@Override

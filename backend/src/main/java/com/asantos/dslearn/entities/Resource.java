@@ -34,7 +34,7 @@ public class Resource implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "offer_id") // chave estrangeira
 	private Offer offer;
-	
+
 	@OneToMany(mappedBy = "resource") // 1 resource conhece varias sections
 	private List<Section> sections = new ArrayList<>();
 
@@ -111,7 +111,10 @@ public class Resource implements Serializable {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id);
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
 	}
 
 	@Override

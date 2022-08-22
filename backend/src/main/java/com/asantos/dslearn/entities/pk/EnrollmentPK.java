@@ -51,7 +51,11 @@ public class EnrollmentPK implements Serializable {
 	// offer qnto o user
 	@Override
 	public int hashCode() {
-		return Objects.hash(offer, user);
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((offer == null) ? 0 : offer.hashCode());
+		result = prime * result + ((user == null) ? 0 : user.hashCode());
+		return result;
 	}
 
 	@Override

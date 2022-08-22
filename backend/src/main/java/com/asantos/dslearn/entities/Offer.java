@@ -43,6 +43,9 @@ public class Offer implements Serializable {
 	@OneToMany(mappedBy = "offer") // nome do atributo do outro lado
 	private List<Resource> resources = new ArrayList<>();
 
+	@OneToMany(mappedBy = "offer")
+	private List<Topic> topics = new ArrayList<>();
+
 	public Offer() {
 	}
 
@@ -101,7 +104,10 @@ public class Offer implements Serializable {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id);
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
 	}
 
 	@Override
