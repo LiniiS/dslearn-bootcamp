@@ -32,3 +32,7 @@ INSERT INTO tb_resource (title, description, position, img_Uri, type, offer_id) 
 INSERT INTO tb_section (title, description, position, img_Uri, resource_id, prequisite_id) VALUES ('Capítulo 1', 'Neste capítulo vamos começar', 1, 'https://via.placeholder.com/300/008000', 1, null);
 INSERT INTO tb_section (title, description, position, img_Uri, resource_id, prequisite_id) VALUES ('Capítulo 2', 'Neste capítulo vamos continuar', 2, 'https://via.placeholder.com/300/008000', 1, 1);
 INSERT INTO tb_section (title, description, position, img_Uri, resource_id, prequisite_id) VALUES ('Capítulo 3', 'Neste capítulo vamos finalizar', 3, 'https://via.placeholder.com/300/008000', 1, 2);
+
+-- matrículas
+INSERT INTO tb_enrollment(user_id, offer_id, enroll_Moment, refund_Moment, available, only_Update) VALUES (1,1, TIMESTAMP WITH TIME ZONE '2020-12-20T13:00:00Z',null, true, false);
+INSERT INTO tb_enrollment(user_id, offer_id, enroll_Moment, refund_Moment, available, only_Update) VALUES (2,1, TIMESTAMP WITH TIME ZONE '2020-12-20T15:00:00Z',null, true, false);
