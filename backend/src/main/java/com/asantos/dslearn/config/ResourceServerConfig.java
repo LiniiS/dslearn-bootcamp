@@ -21,6 +21,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter{
 	@Autowired
 	private JwtTokenStore tokenStore;
 	
+	//define os vetores com as rotas pra facilitar nas permissões
 	private static final String[] PUBLIC = {"/oauth/token ", "/h2-console/**"};
 //	private static final String[] ADMIN = {"/users/**"};
 	
@@ -40,8 +41,8 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter{
 		}
 		
 		http.authorizeRequests()
-		.antMatchers(PUBLIC).permitAll()
-		.anyRequest().authenticated();
+		.antMatchers(PUBLIC).permitAll() //o que é público tá liberado o resto da aplicação
+		.anyRequest().authenticated(); //exige autenticação
 	}
 
 	

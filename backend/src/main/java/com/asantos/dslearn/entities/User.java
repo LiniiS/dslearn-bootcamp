@@ -143,4 +143,20 @@ public class User implements UserDetails, Serializable {
 		return true;
 	}
 
+	/**
+	 * Método auxiliar par averificar se o usuário atual que está logado é admin
+	 * 
+	 * @param roleName
+	 * @return
+	 */
+	public boolean hasRole(String roleName) {
+		// verifica a coleção de roles do usuário atual
+		for (Role role : roles) {
+			if (role.getAuthority().equals(roleName)) {
+				return true;
+			}
+		}
+
+		return false;
+	}
 }

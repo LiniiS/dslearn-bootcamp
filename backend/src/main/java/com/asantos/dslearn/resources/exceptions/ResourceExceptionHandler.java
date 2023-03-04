@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.asantos.dslearn.services.exceptions.DataBaseException;
+import com.asantos.dslearn.services.exceptions.ForbiddenException;
 import com.asantos.dslearn.services.exceptions.ResourceNotFoundException;
+import com.asantos.dslearn.services.exceptions.UnauthorizedException;
 
 @ControllerAdvice
 public class ResourceExceptionHandler {
@@ -37,7 +39,7 @@ public class ResourceExceptionHandler {
 	@ExceptionHandler(DataBaseException.class)
 	public ResponseEntity<StandardError> dataBaseIntegrityViolation(DataBaseException exception,
 			HttpServletRequest request) {
-		
+
 		HttpStatus status = HttpStatus.BAD_REQUEST;
 
 		StandardError standardError = new StandardError();
@@ -50,12 +52,12 @@ public class ResourceExceptionHandler {
 		return ResponseEntity.status(status).body(standardError);
 
 	}
-	
+
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<ValidationError> validationException(MethodArgumentNotValidException exception,
 			HttpServletRequest request) {
-		
-		HttpStatus status = HttpStatus.UNPROCESSABLE_ENTITY; //422 
+
+		HttpStatus status = HttpStatus.UNPROCESSABLE_ENTITY; // 422
 
 		ValidationError validationError = new ValidationError();
 		validationError.setTimestamp(Instant.now());
@@ -63,13 +65,37 @@ public class ResourceExceptionHandler {
 		validationError.setError("Validation exception");
 		validationError.setMessage(exception.getMessage());
 		validationError.setPath(request.getRequestURI());
-		
-		//acessa a lista de errors interna do beans valitaion
-		for( FieldError fieldError : exception.getBindingResult().getFieldErrors()){
-			validationError.addError(fieldError.getField() , fieldError.getDefaultMessage());
+
+		// acessa a lista de errors interna do beans valitaion
+		for (FieldError fieldError : exception.getBindingResult().getFieldErrors()) {
+			validationError.addError(fieldError.getField(), fieldError.getDefaultMessage());
 		}
 
 		return ResponseEntity.status(status).body(validationError);
+
+	}
+
+	@ExceptionHandler(ForbiddenException.class)
+	public ResponseEntity<OAuthCustomError> forbiddenResourceAccess(ForbiddenException exception,
+			HttpServletRequest request) {
+
+		HttpStatus status = HttpStatus.FORBIDDEN;
+
+		OAuthCustomError oAuthCustomError = new OAuthCustomError("Forbidden", exception.getMessage());
+
+		return ResponseEntity.status(status).body(oAuthCustomError);
+
+	}
+
+	@ExceptionHandler(UnauthorizedException.class)
+	public ResponseEntity<OAuthCustomError> forbiddenResourceAccess(UnauthorizedException exception,
+			HttpServletRequest request) {
+
+		HttpStatus status = HttpStatus.UNAUTHORIZED;
+
+		OAuthCustomError oAuthCustomError = new OAuthCustomError("Unauthorized", exception.getMessage());
+
+		return ResponseEntity.status(status).body(oAuthCustomError);
 
 	}
 
