@@ -21,18 +21,18 @@ public class Enrollment {
 
 	// chave primária de uma classe de associação (muitos pra muitos)
 	// nesse caso é preciso instanciar
-	// no caso do mapeamentousando a chave composta (via embeddable) usa outra
+	// no caso do mapeamento usando a chave composta (via embeddable) usa outra
 	// anotação
 	@EmbeddedId
 	private EnrollmentPK id = new EnrollmentPK();
 
-	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")//garante que será salvo em banco no formato UTC
 	private Instant enrollMoment;
 
 	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
 	private Instant refundMoment;
 	private boolean available;
-	private boolean onlyUpdate;// usar o wrapper qnd o valor poderá se true, false ou null
+	private boolean onlyUpdate;// usar o wrapper qnd o valor poderá ser true, false ou null
 
 	@ManyToMany(mappedBy = "enrollmentsDone")
 	private Set<Lesson> lessonsDone = new HashSet<>();
@@ -53,6 +53,10 @@ public class Enrollment {
 		this.onlyUpdate = onlyUpdate;
 	}
 
+	//por usar um tipo interno EnrollmentPK é 
+	//uma boa prática usar o get/set associado
+	//ao tipo interno criado
+	
 	public User getStudent() {
 		return id.getUser();
 	}
