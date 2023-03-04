@@ -29,12 +29,6 @@ public class UserService implements UserDetailsService {
 	@Autowired
 	private UserRepository userRepository;
 
-	@Autowired
-	private RoleRepository roleRepository;
-
-	@Autowired
-	private BCryptPasswordEncoder passwordEncoder;
-
 	@Transactional(readOnly = true)
 	public UserDTO findUserById(Long userId) {
 
